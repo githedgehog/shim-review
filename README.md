@@ -141,7 +141,7 @@ Yes. (TODO)
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
 ### Does your new chain of trust disallow booting old GRUB2 builds affected by the CVEs?
 *******************************************************************************
-Yes. (TODO)
+Yes.
 
 *******************************************************************************
 ### If your boot chain of trust includes a Linux kernel:
