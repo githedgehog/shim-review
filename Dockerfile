@@ -6,7 +6,7 @@ ARG BUILDARCH
 # assuming that someone is on an x86_64 system
 # NOTE: check the Makefile for dedicated buildkit targets to build for multiple platforms
 ARG EFIARCH=x64
-RUN echo "Building shim for \"${TARGETARCH}\" on \"${BUILDARCH}\" (EFIARCH: \"${EFIARCH}\"")"
+RUN echo "Building shim for \"${TARGETARCH}\" on \"${BUILDARCH}\" (EFIARCH: \"${EFIARCH}\")"
 
 # copy everything from the local folder that we need for the build
 ADD hedgehog-sb-ca.der sbat.hedgehog.csv /build/
