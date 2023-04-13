@@ -53,7 +53,8 @@ You will be asked to post the contents of these mails in your `shim-review` issu
 - Name: Marcus Heese
 - Position: Linux Platform Engineer
 - Email address: marcus@githedgehog.com
-- PGP key fingerprint: ``
+- PGP key fingerprint: `233CBDE7A46777609D57622C661B704EDF87C5D5`
+- PGP key fingerprint: `D2A2C35C76D76AEAC10E5BCDA3E075F074D3D91D`
 
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
@@ -65,7 +66,7 @@ well known in the Linux community.)
 - Name: Mike Dvorkin
 - Position: CTO
 - Email address: mike@githedgehog.com
-- PGP key fingerprint: ``
+- PGP key fingerprint: `C2661FA61B891C30E837281976C23BC6495DA313`
 
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
