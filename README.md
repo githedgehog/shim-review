@@ -183,8 +183,8 @@ In fact it was used to generate the submitted shim binaries to begin with.
 ### Which files in this repo are the logs for your build?
 This should include logs for creating the buildroots, applying patches, doing the build, creating the archives, etc.
 *******************************************************************************
-You can find the build logs in the `build.log` of this repository.
-It is an executed run of the docker image from the `Dockerfile`.
+You can find the build logs in the `build-x86_64.log` file for the x64 build and the `build-arm64.log` file for the aa64 build of this repository.
+It is an executed run of the docker image from the `Dockerfile` as executed by the `Makefile`.
 
 *******************************************************************************
 ### What changes were made since your SHIM was last signed?
