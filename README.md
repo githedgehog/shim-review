@@ -79,7 +79,7 @@ Please create your shim binaries starting with the 15.7 shim release tar file: h
 This matches https://github.com/rhboot/shim/releases/tag/15.7 and contains the appropriate gnu-efi source.
 
 *******************************************************************************
-Yes, as can be seen in the `Dockerfile`. (TODO)
+Yes, as can be seen in the `Dockerfile`.
 
 *******************************************************************************
 ### URL for a repo that contains the exact code which was built to get this binary:
@@ -95,8 +95,8 @@ All patches are either necessary (like the NX compatibility patch) or are upstre
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader what exact implementation of Secureboot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
 *******************************************************************************
-For both ONIE and SONiC we rely on the Debian maintained grub2 release which can be found [here](https://salsa.debian.org/grub-team/grub/-/tree/debian/2.06-7).
-Debian has its own downstream implementation.
+For both ONIE and SONiC we rely on the Fedora maintained grub2 release.
+Fedora has its own downstream implementation.
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader and your previously released shim booted a version of grub affected by any of the CVEs in the July 2020 grub2 CVE list, the March 2021 grub2 CVE list, the June 7th 2022 grub2 CVE list, or the November 15th 2022 list, have fixes for all these CVEs been applied?
@@ -136,7 +136,7 @@ However, the grub version have these patches applied.
 *******************************************************************************
 ### If these fixes have been applied, have you set the global SBAT generation on your GRUB binary to 3?
 *******************************************************************************
-Yes. (TODO)
+Yes.
 
 *******************************************************************************
 ### Were old shims hashes provided to Microsoft for verification and to be added to future DBX updates?
@@ -215,17 +215,222 @@ No.
 ### Please provide exact SBAT entries for all SBAT binaries you are booting or planning to boot directly through shim.
 ### Where your code is only slightly modified from an upstream vendor's, please also preserve their SBAT entries to simplify revocation.
 *******************************************************************************
-TODO
+shim:
+```
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+shim,3,UEFI shim,shim,1,https://github.com/rhboot/shim
+shim.hedgehog,3,Hedgehog SONiC Foundation,shim,15.7,https://github.com/githedgehog/shim-review
+```
+
+grub:
+```
+sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
+grub,3,Free Software Foundation,grub,2.06,https//www.gnu.org/software/grub/
+grub.rh,2,Red Hat,grub2,2.06-95.fc38,mailto:secalert@redhat.com
+grub.hedgehog,2,Hedgehog SONiC Foundation,grub,2.06,https://github.com/githedgehog/grub-build
+```
 
 *******************************************************************************
 ### Which modules are built into your signed grub image?
 *******************************************************************************
-TODO
+We are building separate grub images for ONIE and SONiC.
+
+The built-in modules for ONIE are (merger of upstream ONIE grub modules and Fedora modules plus the `version` module):
+- all_video
+- archelp
+- at_keyboard
+- backtrace
+- blscfg
+- boot
+- btrfs
+- bufio
+- cat
+- chain
+- configfile
+- connectefi
+- crypto
+- cryptodisk
+- echo
+- efi_gop
+- efi_netfs
+- efi_uga
+- efifwsetup
+- efinet
+- ext2
+- f2fs
+- fat
+- font
+- fshelp
+- gcry_dsa
+- gcry_rijndael
+- gcry_rsa
+- gcry_serpent
+- gcry_sha1
+- gcry_sha256
+- gcry_sha512
+- gcry_twofish
+- gcry_whirlpool
+- gettext
+- gfxmenu
+- gfxterm
+- gfxterm_background
+- gzio
+- halt
+- hfsplus
+- http
+- increment
+- is_sb_enabled
+- iso9660
+- jpeg
+- keylayouts
+- keystatus
+- linux
+- loadenv
+- loopback
+- lsefi
+- lsefimmap
+- lsefisystab
+- lssal
+- luks
+- luks2
+- lvm
+- mdraid09
+- mdraid1x
+- memdisk
+- minicmd
+- net
+- normal
+- part_apple
+- part_gpt
+- part_msdos
+- password_pbkdf2
+- pgp
+- png
+- raid5rec
+- raid6rec
+- reboot
+- regexp
+- search
+- search_fs_file
+- search_fs_uuid
+- search_label
+- serial
+- sleep
+- squash4
+- syslinuxcfg
+- terminal
+- terminfo
+- test
+- tftp
+- tpm
+- true
+- usb
+- usbserial_common
+- usbserial_ftdi
+- usbserial_pl2303
+- usbserial_usbdebug
+- version
+- video
+- xfs
+- zfs
+- zfscrypt
+- zfsinfo
+- zstd
+
+The buil-in modules for SONiC are (upstream Fedora modules, plus the `is_sb_enabled` and `version` modules):
+- all_video
+- at_keyboard
+- backtrace
+- blscfg
+- boot
+- btrfs
+- cat
+- chain
+- configfile
+- connectefi
+- cryptodisk
+- echo
+- efi_netfs
+- efifwsetup
+- efinet
+- ext2
+- f2fs
+- fat
+- font
+- gcry_rijndael
+- gcry_rsa
+- gcry_serpent
+- gcry_sha256
+- gcry_twofish
+- gcry_whirlpool
+- gfxmenu
+- gfxterm
+- gzio
+- halt
+- hfsplus
+- http
+- increment
+- is_sb_enabled
+- iso9660
+- jpeg
+- keylayouts
+- linux
+- loadenv
+- loopback
+- lsefi
+- lsefimmap
+- luks
+- luks2
+- lvm
+- mdraid09
+- mdraid1x
+- memdisk
+- minicmd
+- net
+- normal
+- part_apple
+- part_gpt
+- part_msdos
+- password_pbkdf2
+- pgp
+- png
+- reboot
+- regexp
+- search
+- search_fs_file
+- search_fs_uuid
+- search_label
+- serial
+- sleep
+- squash4
+- syslinuxcfg
+- test
+- tftp
+- tpm
+- usb
+- usbserial_common
+- usbserial_ftdi
+- usbserial_pl2303
+- usbserial_usbdebug
+- version
+- video
+- xfs
+- zstd
 
 *******************************************************************************
 ### What is the origin and full version number of your bootloader (GRUB or other)?
 *******************************************************************************
-[[Debian grub 2.06-7](https://salsa.debian.org/grub-team/grub/-/tree/debian/2.06-7)
+Our grub builds are done in: https://github.com/githedgehog/grub-build
+
+It is based on Fedora grub from: https://src.fedoraproject.org/rpms/grub2.git
+
+The version number as shown by the internal `version` command:
+```
+GRUB version 2.06
+Platform x86_64-efi
+RPM package version 2.06-95.fc38
+Compiler version 13.0.1 20230401 (Red Hat 13.0.1-0)
+```
 
 *******************************************************************************
 ### If your SHIM launches any other components, please provide further details on what is launched.
@@ -242,7 +447,7 @@ The chainloading will in fact chainload to the signed shim which will load grub 
 *******************************************************************************
 ### How do the launched components prevent execution of unauthenticated code?
 *******************************************************************************
-Debian's grub verifies signatures of kernels via the shim protocol.
+Fedora's grub verifies signatures of kernels via the shim protocol.
 It includes a set of common secure boot patches to achieve that.
 All our signed Linux kernels either have all necessary lockdown patches dervived from the upstream Linux kernel or have them applied separately where necessary.
 
