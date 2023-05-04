@@ -24,4 +24,4 @@ jobs:
             env.BUILDKIT_STEP_LOG_MAX_SIZE=-1
             env.BUILDKIT_STEP_LOG_MAX_SPEED=-1
       - name: Run builds in docker containers
-        run: make
+        run: make ci
