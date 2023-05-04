@@ -196,10 +196,12 @@ This is our first submission and we have not yet a shim signed.
 *******************************************************************************
 ### What is the SHA256 hash of your final SHIM binary?
 *******************************************************************************
+```
 SHA-256 sum of shimx64.efi:
 4e092ebd10aee061b4f437c9c12c786b249b6b31006ff9c98f9951bd405daf4b  shimx64.efi
 SHA-256 sum of shimaa64.efi:
 fad059b6ae141df2cf8299f7ac798a866f7e83f99d58618a92269fef9494ab6f  shimaa64.efi
+```
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your SHIM?
