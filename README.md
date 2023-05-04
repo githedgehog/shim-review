@@ -36,6 +36,7 @@ We want to use the signed shim for booting:
 Bringing Secure Boot to SONiC capable devices is a major value add that we want to provide with Hedgehog SONiC.
 Currently there is no open SONiC distribution which would allow an end-user to enable Secure Boot on their switches without using a MOK.
 Additionally we have yet to encounter an ONIE installation on a switch which is Secure Boot capable.
+Furthermore this enables for us the use of Hedgehog SONiC and ONIE on both hardware as well as cloud use-cases using the same builds.
 
 *******************************************************************************
 ### Why are you unable to reuse shim from another distro that is already signed?
@@ -90,7 +91,7 @@ https://github.com/githedgehog/shim-review
 ### What patches are being applied and why:
 *******************************************************************************
 All patches that are being applied can be seen in the `Dockerfile`, and can be found in the `shim-patches/` folder in this repository.
-All patches are either necessary (like the NX compatibility patch) or are upstream bug fixes which are not part of any official shim release yet. (TODO)
+All patches are either necessary (like the NX compatibility patch) or are upstream bug fixes which are not part of any official shim release yet.
 
 *******************************************************************************
 ### If shim is loading GRUB2 bootloader what exact implementation of Secureboot in GRUB2 do you have? (Either Upstream GRUB2 shim_lock verifier or Downstream RHEL/Fedora/Debian/Canonical-like implementation)
@@ -150,7 +151,7 @@ Yes.
 ### Is upstream commit [75b0cea7bf307f362057cc778efe89af4c615354 "ACPI: configfs: Disallow loading ACPI tables when locked down"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=75b0cea7bf307f362057cc778efe89af4c615354) applied?
 ### Is upstream commit [eadb2f47a3ced5c64b23b90fd2a3463f63726066 "lockdown: also lock down previous kgdb use"](https://git.kernel.org/pub/scm/linux/kernel/git/torvalds/linux.git/commit/?id=eadb2f47a3ced5c64b23b90fd2a3463f63726066) applied?
 *******************************************************************************
-Yes. (TODO: check)
+Yes.
 
 *******************************************************************************
 ### Do you build your signed kernel with additional local patches? What do they do?
@@ -195,7 +196,10 @@ This is our first submission and we have not yet a shim signed.
 *******************************************************************************
 ### What is the SHA256 hash of your final SHIM binary?
 *******************************************************************************
-TODO
+SHA-256 sum of shimx64.efi:
+4e092ebd10aee061b4f437c9c12c786b249b6b31006ff9c98f9951bd405daf4b  shimx64.efi
+SHA-256 sum of shimaa64.efi:
+fad059b6ae141df2cf8299f7ac798a866f7e83f99d58618a92269fef9494ab6f  shimaa64.efi
 
 *******************************************************************************
 ### How do you manage and protect the keys used in your SHIM?
@@ -428,8 +432,14 @@ The version number as shown by the internal `version` command:
 ```
 GRUB version 2.06
 Platform x86_64-efi
-RPM package version 2.06-95.fc38
-Compiler version 13.0.1 20230401 (Red Hat 13.0.1-0)
+RPM package version 2.06-94.fc37
+Compiler version 12.2.1 20221121 (Red Hat 12.2.1-4)
+```
+```
+GRUB version 2.06
+Platform arm64-efi
+RPM package version 2.06-94.fc37
+Compiler version 12.2.1 20221121 (Red Hat 12.2.1-4)
 ```
 
 *******************************************************************************
@@ -449,6 +459,10 @@ The chainloading will in fact chainload to the signed shim which will load grub 
 *******************************************************************************
 Fedora's grub verifies signatures of kernels via the shim protocol.
 It includes a set of common secure boot patches to achieve that.
+Additionally the ONIE grub includes a PGP key with which all grub configuration, Linux kernel and initramfs files are signed.
+When the system is in Secure Boot mode it requires the signatures.
+Additionally it requires a password when in Secure Boot mode in order to shell out in grub or to edit a command line.
+
 All our signed Linux kernels either have all necessary lockdown patches dervived from the upstream Linux kernel or have them applied separately where necessary.
 
 *******************************************************************************
