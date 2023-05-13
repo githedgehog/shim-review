@@ -198,9 +198,9 @@ This is our first submission and we have not yet a shim signed.
 *******************************************************************************
 ```
 SHA-256 sum of shimx64.efi:
-4e092ebd10aee061b4f437c9c12c786b249b6b31006ff9c98f9951bd405daf4b  shimx64.efi
+ffca401f08672a4f3c21c5ecabf44591fa3579f4cc765907394baf898f4022a5  artifacts/shimx64.efi
 SHA-256 sum of shimaa64.efi:
-fad059b6ae141df2cf8299f7ac798a866f7e83f99d58618a92269fef9494ab6f  shimaa64.efi
+c5239b6fa2012b7128beaed466a60f7a88dd8ca18a33c0525e460562ab63209e  artifacts/shimaa64.efi
 ```
 
 *******************************************************************************
