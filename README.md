@@ -225,15 +225,15 @@ shim:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 shim,3,UEFI shim,shim,1,https://github.com/rhboot/shim
-shim.hedgehog,3,Hedgehog SONiC Foundation,shim,15.7,https://github.com/githedgehog/shim-review
+shim.hedgehog,1,Hedgehog SONiC Foundation,shim,15.7,https://github.com/githedgehog/shim-review
 ```
 
 grub:
 ```
 sbat,1,SBAT Version,sbat,1,https://github.com/rhboot/shim/blob/main/SBAT.md
 grub,3,Free Software Foundation,grub,2.06,https//www.gnu.org/software/grub/
-grub.rh,2,Red Hat,grub2,2.06-95.fc38,mailto:secalert@redhat.com
-grub.hedgehog,2,Hedgehog SONiC Foundation,grub,2.06,https://github.com/githedgehog/grub-build
+grub.rh,2,Red Hat,grub2,2.06-94.fc37,mailto:secalert@redhat.com
+grub.hedgehog,1,Hedgehog SONiC Foundation,grub,2.06,https://github.com/githedgehog/grub-build
 ```
 
 *******************************************************************************
