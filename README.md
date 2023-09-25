@@ -54,8 +54,7 @@ You will be asked to post the contents of these mails in your `shim-review` issu
 - Name: Marcus Heese
 - Position: Linux Platform Engineer
 - Email address: marcus@githedgehog.com
-- PGP key fingerprint: `233CBDE7A46777609D57622C661B704EDF87C5D5`
-- PGP key fingerprint: `D2A2C35C76D76AEAC10E5BCDA3E075F074D3D91D`
+- PGP key fingerprint: `65F20EF3617803DCC5E0C3180A9749F383D6B2A9`
 
 (Key should be signed by the other security contacts, pushed to a keyserver
 like keyserver.ubuntu.com, and preferably have signatures that are reasonably
@@ -159,6 +158,28 @@ Yes.
 Both ONIE and SONiC come with a different set of patches per device.
 This is expected as every switch has a different combination of hardware/ASIC that they need to support.
 
+For SONiC we do not deviate from what is built for the upstream community SONiC distribution.
+The Linux kernel is based on Debian 11 Bullseye and the patchset can be found at: https://github.com/sonic-net/sonic-linux-kernel/
+
+For ONIE the patches are completely dependent on the platform (= the different switch hardware) and usually related to accessing fans, SFPs, etc. (I2C subsystem).
+
+*******************************************************************************
+### Do you use an ephemeral key for signing kernel modules?
+### If not, please describe how you ensure that one kernel build does not load modules built for another kernel.
+*******************************************************************************
+
+For ONIE we currently do not build any Linux kernel modules.
+
+For SONiC we build with `CONFIG_MODVERSIONS=y`.
+However, we require that Linux kernel modules must be signed with `CONFIG_MODULE_SIG_FORCE=y`.
+This is a requirement as we cannot always 100% guarantee that we know which kernel modules are needed ahead of time.
+We need room to be able to build a kernel module out of tree and ad hoc afterwards.
+An ephemeral key would prevent us from doing so.
+However, we want to guarantee that only *our* compiled modules can be loaded and no other modules.
+While this does not guarantee that modules from previous/older kernel versions can be loaded, we will roll the Linux kernel module keys when required, for example in cases when an older compiled module could compromise the secure boot functionality.
+The key with which we sign Linux kernel modules is secured in the same fashion as the key which is included in our shim (see below).
+No other keys are included that are allowed to load Linux kernel modules.
+
 *******************************************************************************
 ### If you use vendor_db functionality of providing multiple certificates and/or hashes please briefly describe your certificate setup.
 ### If there are allow-listed hashes please provide exact binaries for which hashes are created via file sharing service, available in public with anonymous access for verification.
@@ -198,9 +219,9 @@ This is our first submission and we have not yet a shim signed.
 *******************************************************************************
 ```
 SHA-256 sum of shimx64.efi:
-ffca401f08672a4f3c21c5ecabf44591fa3579f4cc765907394baf898f4022a5  artifacts/shimx64.efi
+f43357e978b690aaef58b53de9e898105230d45cc825a4fb8ef996e577e8c541  artifacts/shimx64.efi
 SHA-256 sum of shimaa64.efi:
-c5239b6fa2012b7128beaed466a60f7a88dd8ca18a33c0525e460562ab63209e  artifacts/shimaa64.efi
+c9cb5349cb38fb3e6305a8beab75b2bab498057f1b8a1f0589f473f7859d760c  artifacts/shimaa64.efi
 ```
 
 *******************************************************************************
@@ -477,6 +498,11 @@ No.
 *******************************************************************************
 As mentioned above we need to use different kernel versions and patches for every different device that we support.
 That means that we are going to apply patches for ACPI and lockdown so that signed kernel module loading is enforced when in secure boot mode if the upstream Linux kernel does not already have them applied.
+
+For SONiC the Linux kernel is based on the Linux kernel from Debian 11 Bullseye - which is currently at 5.10.179.
+
+For ONIE we are trying to base the Linux kernel on the latest vanilla 6.1 release (6.1.44 at the time of writing).
+However, not all required patches for all platforms (= different switch hardware) work on Linux kernel 6.1 just yet, in which case we need to work with an older Linux version.
 
 *******************************************************************************
 ### Add any additional information you think we may need to validate this shim.
